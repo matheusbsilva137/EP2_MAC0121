@@ -1,0 +1,1628 @@
+
+<!-- saved from url=(0054)https://www.ime.usp.br/~cris/mac121/eps/ep2/enunciado/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>MAC0121 Algoritmos e Estruturas de Dados I</title>
+  <link rel="stylesheet" href="./enunciado_files/eps.css" type="text/css">
+</head>
+<body cz-shortcut-listen="true">
+<p align="right">
+<small><b><a href="http://www.ime.usp.br/mac/">Departamento de Ciência da Computação</a> 
+- <a href="http://www.ime.usp.br/">IME</a> - <a href="http://www.usp.br/">USP</a></b></small><br>
+</p>
+
+<h1>MAC0121 Algoritmos e Estruturas de Dados I</h1>
+
+<h2>Segundo Semestre de 2019</h2>
+
+<h3 class="center">Segundo Exercício-Programa</h3>
+
+<p>&nbsp;</p>
+<font color="#000000">
+<p align="right">
+<small>
+“As soon as we started programming, we found to our surprise that <br>
+it wasn’t as easy to get programs right as we had thought. Debugging had to be discovered.  <br>
+I can remember the exact instant when I realized that a large part<br>
+of my life from then on was going to be spent in finding mistakes in my own programs.”<br>
+<br>
+Maurice Wilkes discovers debugging, 1949 
+<br>
+</small>
+</p>
+</font>
+<p>&nbsp;</p>
+
+<h2>
+<font color="red">P</font><font color="green">i</font><font color="blue">n</font><font color="red">t</font><font color="green">o</font><font color="blue">r</font>
+<font color="red">d</font><font color="blue">e</font>
+<font color="red">I</font><font color="green">m</font><font color="blue">a</font><font color="red">g</font><font color="green">e</font><font color="blue">n</font><font color="red">s</font>
+</h2>
+<p>&nbsp;</p>
+
+O objetivo desse segundo exercício-programa (EP) é treinar:
+<ul>
+<li> <a href="http://www.ime.usp.br/~pf/algoritmos/aulas/recu.html">Recursão</a>; 
+</li><li> <a href="http://www.ime.usp.br/~pf/algoritmos/aulas/stru.html">Registros e structs</a>;
+</li><li> <a href="http://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html">Alocação dinâmica de memória</a>: free e malloc;
+</li><li> <a href="http://www.ime.usp.br/~pf/algoritmos/aulas/lista.html">Listas encadeadas</a>:  criação, busca e inserção (ficamos devendo remoção :-().
+</li></ul>
+Este EP está organizado em vários arquivos e é necessário
+que o <a href="http://www.opengl.org/">OpenGL</a> seja instalado. O
+quadro de avisos contém links de páginas que descrevem como instalar o
+OpenGl.
+
+<p>
+Neste EP vocês escreverão um programa que 
+<i><font color="magenta">lê</font></i> de um arquivo que contém uma representação de uma imagem
+<font color="red">c</font><font color="green">o</font><font color="blue">l</font><font color="red">o</font><font color="green">r</font><font color="blue">i</font><font color="red">d</font><font color="blue">a</font>
+no formato <a href="http://en.wikipedia.org/wiki/Netpbm_format"><i>Portable pixmap</i></a>.
+A partir dessa representação o programa 
+</p><ol>
+<li> <i><font color="green">segmenta</font></i> essa imagem em "regiões conexas" de 
+<b><font color="red">b</font><font color="green">o</font><font color="blue">r</font><font color="red">d</font><font color="green">a</font></b>
+     e regiões limitadas por 
+<b><font color="red">b</font><font color="green">o</font><font color="blue">r</font><font color="red">d</font><font color="green">a</font><font color="red">s</font></b> e pela fronteira da imagem utilizando 
+uma <font color="red"><i>função recursiva</i></font>,
+</li><li> <i><font color="blue">armazena</font></i> as regiões em uma <font color="black"><i>lista encadeada</i></font>, 
+</li><li> <i><font color="red">armazena</font></i> os "pixels" que formam cada 
+      região em uma <font color="black"><i>lista encadeada</i></font>,
+</li></ol>
+e <font color="green">interativamente</font>
+<ol>
+<li> <i><font color="blue">exibe</font></i> a imagem original,
+</li><li> <i><font color="red">pinta</font></i> todas as regiões de borda com diversas 
+<font color="red">c</font><font color="green">o</font><font color="blue">r</font><font color="red">e</font><font color="green">s</font>,
+</li><li> <i><font color="green">mostra</font></i> apenas as regiões de borda pitadas,
+</li><li> <i><font color="blue">pinta</font></i> todas as regiões com diversas 
+<font color="red">c</font><font color="green">o</font><font color="blue">r</font><font color="red">e</font><font color="green">s</font>,
+</li><li> <i><font color="red">mostra</font></i> as regiões pintadas,
+</li><li> <i><font color="green">repinta</font></i> uma determinada região com uma nova 
+<font color="red">c</font><font color="green">o</font><font color="blue">r</font>,
+</li><li> <i><font color="blue">repinta</font></i> todas as regiões de uma certa
+<font color="red">c</font><font color="green">o</font><font color="blue">r</font>  com uma nova 
+<font color="red">c</font><font color="green">o</font><font color="blue">r</font>,
+</li><li>  <i><font color="green">grava</font></i> a imagem corrente em um arquivo.   
+</li></ol>
+
+
+<p>
+Executáveis deste EP estão disponíveis <a href="https://www.ime.usp.br/~cris/mac121/eps/ep2/executaveis">aqui</a>:
+<tt>pintor-linux32</tt>, <tt>pintor-linux64</tt>, <tt>pintor-macosx</tt>,
+e <tt>pintor-windows</tt>.
+Para executar esses programas é necessário que o OpenGL esteja instalado.
+</p>
+
+<p>
+A propósito, este EP é uma adaptação do
+<a href="http://www.ime.usp.br/~hitoshi/mac0122-2012/ep2/">EP2 de MAC0122 em 2012</a>
+de autoria do professor Carlos Hitoshi Morimoto.
+</p>
+
+<!--****************************************************************************-->
+<hr>
+<h2>
+Comportamento do EP
+</h2>
+
+<p>
+Para acompanhar o que está descrito aqui, talvez seja conveniente baixar algum dos executáveis
+e testar o seu comportamento. 
+</p>
+<p>
+O nome do executável produzido pelo <tt>Makefile</tt> disponibilizado é <tt>ep2</tt>.
+Quando executado através da linha de comando obtemos:
+
+</p><pre class="saida">meu_prompt&gt; <font color="red">./pintor2</font>
+./pintor: Uso 
+meu_prompt&gt; ./pintor &lt;nome arq. imagem&gt;
+    &lt;nome arq. image&gt; = nome arq. com Portable PixMap Binary.
+</pre>
+
+Isto significa que para executar esse EP é necessário que seja
+fornecida na linha de comando o nome de um arquivo com uma imagem no
+formato <a href="http://netpbm.sourceforge.net/doc/ppm.html">Portable
+Pixmap Binary</a>. Alguns arquivos com este formato estão disponíveis
+na página do EP.
+<p></p>
+<p>
+Fornecendo ao programa um arquivo com uma imagem veremos no shell as mensagens
+</p><pre class="saida">meu_prompt&gt; <font color="red">./pintor grauna.ppm</font>
+carregueImagemPPM: Arquivo '../ppm/grauna.ppm' com a imagem foi aberto.
+Comentario: #Created with GIMP
+A imagem foi carregada e o arquivo '../ppm/grauna.ppm' foi fechado.
+
+Grupos de pixels de uma mesma regiao:
+Grupo  0 tem 1246 pixels
+Grupo  1 tem 76030 pixels
+Grupo  2 tem 193 pixels
+Grupo  3 tem 67 pixels
+Grupo  4 tem 194 pixels
+Grupo  5 tem 62 pixels
+Grupo  6 tem 1 pixels
+Grupo  7 tem 176 pixels
+Grupo  8 tem 73 pixels
+Grupo  9 tem 200 pixels
+Grupo 10 tem 73 pixels
+Grupo 11 tem 1 pixels
+Grupo 12 tem 6 pixels
+Grupo 13 tem 6160 pixels
+Grupo 14 tem 738 pixels
+Grupo 15 tem 64 pixels
+Grupo 16 tem 1645 pixels
+Grupo 17 tem 793 pixels
+Grupo 18 tem 1 pixels
+Grupo 19 tem 1 pixels
+Grupo 20 tem 1 pixels
+Grupo 21 tem 1 pixels
+Grupo 22 tem 139 pixels
+Grupo 23 tem 183 pixels
+Grupo 24 tem 120 pixels
+Grupo 25 tem 4824 pixels
+Grupo 26 tem 242 pixels
+Grupo 27 tem 1 pixels
+Grupo 28 tem 2 pixels
+Grupo 29 tem 1 pixels
+Grupo 30 tem 3646 pixels
+Grupo 31 tem 2 pixels
+Grupo 32 tem 1 pixels
+Grupo 33 tem 1 pixels
+Grupo 34 tem 2 pixels
+Grupo 35 tem 1 pixels
+Grupo 36 tem 2 pixels
+Grupo 37 tem 111 pixels
+Grupo 38 tem 1 pixels
+Grupo 39 tem 1 pixels
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+e uma janela é aberta exibindo a imagem lida do arquivo.
+<center>
+<p>
+<img src="./enunciado_files/grauna0.jpg" alt="imagem original">
+</p>
+</center>
+
+<!------------------------------------------------------------------------->
+<p>
+Chamaremos de <font color="red"><b>imagem original</b></font> a imagem que foi lida do arquivo e
+de <font color="red"><b>imagem corrente</b></font> a que está sendo exibida na janela.
+Durante a execução do programa essas duas imagens podem ou não ser iguais. A imagem original nunca será alterada, 
+já a imagem corrente poderá ser editada: pintada, repintada, apagada, ...
+</p>
+
+<!------------------------------------------------------------------------->
+<h3>
+Opção r
+</h3>
+
+<p>
+Com o programa sendo executado, ao teclarmos <tt>'r'</tt>, o shell apresenta as mensagens:
+</p><pre class="saida">AVISO: graphic: chamando a funcao pinteImagem.
+AVISO: graphic: voltei da funcao pinteImagem.
+AVISO: graphic: chamando a funcao pinteRegioes.
+AVISO: graphic: voltei da funcao pinteRegioes.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+As mensagens indicam quais funções do seu EP estão sendo chamadas pelo módulo <tt>graphic.c</tt>.
+Isto será útil durante a fase de desenvolvimento do seu EP.
+Enquanto isto, na janela, a imagem corrente exibida passa a ser uma em que cada região é
+pintada com uma cor. Idealmente as cores seriam todas diferentes, entretanto dependendo 
+do número de regiões podemos ter regiões diferentes apresentadas
+com uma mesma cor. No caso da imagem <tt>grauna.ppm</tt> o programa encontrou 39 regiões 
+(39 grupos de pixels).
+<p></p>
+<p>
+Para a imagem <tt>grauna.ppm</tt> anterior uma possível coloração de suas regiões é
+</p><center>
+<p>
+<img src="./enunciado_files/grauna_r1.jpg" alt="regiao1">
+</p>
+</center>
+<p></p>
+Cada vez que teclamos <tt>'r'</tt> a imagem corrente passa a ser uma em que as regiões são pintadas 
+de outras cores. Por exemplo:
+<center>
+<p>
+<img src="./enunciado_files/grauna_r2.jpg" alt="regiao2">
+<img src="./enunciado_files/grauna_r3.jpg" alt="regiao3">
+<img src="./enunciado_files/grauna_r4.jpg" alt="regiao4">
+</p>
+</center>
+<p></p>
+
+
+<!------------------------------------------------------------------------->
+<h3>
+Opção b
+</h3>
+
+<p>
+Ao teclarmos <tt>'b'</tt>, o shell apresenta as mensagens:
+</p><pre class="saida">AVISO: graphic: chamando a funcao pinteImagem.
+AVISO: graphic: voltei da funcao pinteImagem.
+AVISO: graphic: chamando a funcao pinteRegioes.
+AVISO: graphic: voltei da funcao pinteRegioes.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+Enquanto isto, na janela, a imagem corrente exibida passa a ser uma em que 
+cada região de 'borda' é pintada com uma cor e apenas essas regiões são exibidas. 
+Idealmente as cores seriam todas diferentes, entretanto dependendo 
+do número de regiões de borda podemos ter regiões diferentes apresentadas
+com uma mesma cor. 
+<p></p>
+<p>
+Para a imagem <tt>grauna.ppm</tt> uma possível coloração de suas regiões de borda é
+</p><center>
+<p>
+<img src="./enunciado_files/grauna_b0.jpg" alt="borda0">
+</p>
+</center>
+<p></p>
+
+<p>
+Cada vez que teclamos <tt>'b'</tt> a imagem corrente passa a ser uma em que as regiões 
+de "borda" são repintadas e apenas elas são exibidas. Por exemplo:
+</p><center>
+<p>
+<img src="./enunciado_files/grauna_b1.jpg" alt="borda1">
+<img src="./enunciado_files/grauna_b2.jpg" alt="borda2">
+<img src="./enunciado_files/grauna_b3.jpg" alt="borda3">
+</p>
+</center>
+<p></p>
+
+<!------------------------------------------------------------------------->
+<h3>
+Opção o
+</h3>
+
+<p>
+Ao teclar <tt>'o'</tt> o shell apresenta as mensagens
+</p><pre class="saida">AVISO: graphic: chamando a funcao copieImagem.
+AVISO: graphic: voltei da funcao copieImagem.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+e a imagem original voltará a ser a imagem corrente e será mostrada na janela:
+<center>
+<p>
+<img src="./enunciado_files/grauna0.jpg" alt="imagem original">
+</p>
+</center>
+<p></p>
+
+
+<!------------------------------------------------------------------------->
+<h3>
+Opção l
+</h3>
+
+<p>
+Quando teclamos <tt>'l'</tt> a janela é limpa, ou seja, todos os pixels da tela ficam com
+a cor branca, que neste EP é a cor de fundo (<tt>BACK_GROUND</tt> em <tt>cores.h</tt>) e
+no shell vemos as mensagens:
+</p><pre class="saida">AVISO: graphic: chamando a funcao pinteImagem.
+AVISO: graphic: voltei da funcao pinteImagem.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+<p></p>
+
+<!------------------------------------------------------------------------->
+<h3>
+Opção g
+</h3>
+
+<p>
+Ao teclarmos <tt>'g'</tt> o shell apresenta uma mensagem pedindo que digitemos o nome de
+um arquivo onde desejamos que a imagem que vemos na janela seja gravada. A seguir
+o texto em <font color="red">vermelho</font> é o nome do arquivo que foi digitado.
+</p><pre class="saida">AVISO: graphic: chamando a funcao graveImagem.
+Digite o nome do arquivo em que a imagem deve ser gravada: <font color="red">imagem-mais-bonita.ppm</font>
+graveImagemPPM: A imagem foi salva no arquivo: 'imagem-mais-bonita.ppm'
+AVISO: graphic: voltei da funcao graveImagem.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+<p></p>
+
+<!-------------------------------------------------------------------------->
+<h3>
+Clique com botão esquerdo
+</h3>
+
+<p>
+Quando clicamos em um ponto da imagem com o <font color="red">botão esquerdo</font>
+do mouse, a região a que esse ponto pertence é repintada.
+As mensagens vistas no shell são:
+</p><pre class="saida">AVISO: graphic: chamando a funcao repinteRegiao.
+AVISO: graphic: voltei da funcao repinteRegiao.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+Por exemplo, clicando com o botao esquerdo do mouse algumas vezes sobre um ponto na região da cauda 
+da graúna da imagem 
+<center>
+<p>
+<img src="./enunciado_files/grauna_r2.jpg" alt="pinta cauda 1">
+</p>
+</center>
+podemos obter as imagens:
+<center>
+<p>
+<img src="./enunciado_files/grauna_p1.jpg" alt="pinta cauda 1">
+<img src="./enunciado_files/grauna_p2.jpg" alt="pinta cauda 2">
+<img src="./enunciado_files/grauna_p3.jpg" alt="pinta cauda 3">
+</p>
+</center>
+<p>
+
+
+<!-------------------------------------------------------------------------->
+</p><h3>
+Clique com botão direito
+</h3>
+
+<p>
+Quando clicamos em um ponto da imagem com o <font color="red">botão direto</font>
+do mouse, todas as regiões que têm a mesma cor que a região a que o ponto pertence são 
+repintadas.
+As mensagens vistas no shell são:
+</p><pre class="saida">AVISO: graphic: chamando a funcao repinteRegioes.
+AVISO: graphic: voltei da funcao repinteRegioes.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+Por exemplo, clicando com o botao direito do mouse algumas vezes sobre um ponto na região da cauda 
+da graúna da imagem 
+<center>
+<p>
+<img src="./enunciado_files/grauna_r3.jpg" alt="pinta regioes">
+</p>
+</center>
+podemos obter as imagens:
+<center>
+<p>
+<img src="./enunciado_files/grauna_d1.jpg" alt="pinta regioes 1">
+<img src="./enunciado_files/grauna_d2.jpg" alt="pinta regioes 2">
+<img src="./enunciado_files/grauna_d3.jpg" alt="pinta regioes 3">
+<img src="./enunciado_files/grauna_d4.jpg" alt="pinta regioes 4">
+</p>
+<p>
+<img src="./enunciado_files/grauna_d5.jpg" alt="pinta regioes 5">
+<img src="./enunciado_files/grauna_d6.jpg" alt="pinta regioes 6">
+<img src="./enunciado_files/grauna_d7.jpg" alt="pinta regioes 7">
+<img src="./enunciado_files/grauna_d8.jpg" alt="pinta regioes 8">
+</p>
+
+<p>
+<img src="./enunciado_files/grauna_d9.jpg" alt="pinta regioes 9">
+<img src="./enunciado_files/grauna_d10.jpg" alt="pinta regioes 10">
+<img src="./enunciado_files/grauna_d11.jpg" alt="pinta regioes 11">
+<img src="./enunciado_files/grauna_d12.jpg" alt="pinta regioes 12">
+</p>
+
+
+<p>
+<img src="./enunciado_files/grauna_d13.jpg" alt="pinta regioes 13">
+<img src="./enunciado_files/grauna_d14.jpg" alt="pinta regioes 14">
+<img src="./enunciado_files/grauna_d15.jpg" alt="pinta regioes 15">
+<img src="./enunciado_files/grauna_d16.jpg" alt="pinta regioes 16">
+</p>
+
+</center>
+<p>
+
+<!-------------------------------------------------------------------------->
+</p><h3>
+Opções a, d, s
+</h3>
+
+<p>
+A maneira que o programa determina as regiões da imagem depende de um
+número inteiro que chamamos de <font color="red">limiar</font>. Esse
+limiar pode ser aumentado, teclando-se em <tt>'a'</tt>, ou diminuído,
+teclando-se em <tt>'d'</tt>. As mensagens vistas no shell são:
+</p><pre class="saida">AVISO: graphic: aumentando limiar.
+AVISO: graphic: limiar atual = 120
+AVISO: graphic: novo  limiar = 121
+AVISO: graphic: limiar aumentado.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+
+AVISO: graphic: diminuindo limiar.
+AVISO: graphic: limiar atual = 121
+AVISO: graphic: novo  limiar = 120
+AVISO: graphic: limiar diminuido.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre>
+<p>
+Depois de alterado o valor do limiar, podemos fazer com que o programa
+determine as regiões da imagem corrente utilizando esse novo limiar teclando
+<tt>'s'</tt>. Por exemplo, após diminuirmos o limiar do valor default, que é 120, 
+para 50 e depois teclarmos <tt>'s'</tt>, veremos no shell as mensagens:
+</p><pre class="saida">AVISO: graphic: chamando a funcao freeRegioes.
+AVISO: graphic: voltei da funcao freeRegioes.
+AVISO: graphic: chamando a funcao segmenteImagem.
+
+Grupos de pixeis de uma mesma regiao:
+Grupo  0 tem 1246 pixels
+Grupo  1 tem 75187 pixels
+Grupo  2 tem 1 pixels
+Grupo  3 tem 3 pixels
+Grupo  4 tem 2 pixels
+Grupo  5 tem 219 pixels
+Grupo  6 tem 2 pixels
+Grupo  7 tem 60 pixels
+Grupo  8 tem 230 pixels
+Grupo  9 tem 3 pixels
+Grupo 10 tem 1 pixels
+Grupo 11 tem 1 pixels
+Grupo 12 tem 58 pixels
+Grupo 13 tem 2 pixels
+Grupo 14 tem 1 pixels
+Grupo 15 tem 3 pixels
+Grupo 16 tem 1 pixels
+Grupo 17 tem 1 pixels
+Grupo 18 tem 1 pixels
+Grupo 19 tem 1 pixels
+Grupo 20 tem 1 pixels
+Grupo 21 tem 1 pixels
+Grupo 22 tem 226 pixels
+Grupo 23 tem 3 pixels
+Grupo 24 tem 64 pixels
+Grupo 25 tem 3 pixels
+Grupo 26 tem 226 pixels
+Grupo 27 tem 64 pixels
+Grupo 28 tem 3 pixels
+Grupo 29 tem 1 pixels
+Grupo 30 tem 4 pixels
+Grupo 31 tem 1 pixels
+Grupo 32 tem 1 pixels
+Grupo 33 tem 1 pixels
+Grupo 34 tem 1 pixels
+Grupo 35 tem 2 pixels
+Grupo 36 tem 6990 pixels
+Grupo 37 tem 6 pixels
+Grupo 38 tem 3 pixels
+Grupo 39 tem 691 pixels
+Grupo 40 tem 1 pixels
+Grupo 41 tem 1 pixels
+Grupo 42 tem 55 pixels
+Grupo 43 tem 1614 pixels
+Grupo 44 tem 752 pixels
+Grupo 45 tem 1 pixels
+Grupo 46 tem 1 pixels
+Grupo 47 tem 1 pixels
+Grupo 48 tem 1 pixels
+Grupo 49 tem 1 pixels
+Grupo 50 tem 3 pixels
+Grupo 51 tem 1 pixels
+Grupo 52 tem 5 pixels
+Grupo 53 tem 1 pixels
+Grupo 54 tem 155 pixels
+Grupo 55 tem 1 pixels
+Grupo 56 tem 2 pixels
+Grupo 57 tem 196 pixels
+Grupo 58 tem 118 pixels
+Grupo 59 tem 4629 pixels
+Grupo 60 tem 236 pixels
+Grupo 61 tem 2 pixels
+Grupo 62 tem 1 pixels
+Grupo 63 tem 3 pixels
+Grupo 64 tem 2 pixels
+Grupo 65 tem 1 pixels
+Grupo 66 tem 1 pixels
+Grupo 67 tem 1 pixels
+Grupo 68 tem 3 pixels
+Grupo 69 tem 1 pixels
+Grupo 70 tem 1 pixels
+Grupo 71 tem 2 pixels
+Grupo 72 tem 1 pixels
+Grupo 73 tem 2 pixels
+Grupo 74 tem 3614 pixels
+Grupo 75 tem 2 pixels
+Grupo 76 tem 1 pixels
+Grupo 77 tem 1 pixels
+Grupo 78 tem 1 pixels
+Grupo 79 tem 1 pixels
+Grupo 80 tem 1 pixels
+Grupo 81 tem 1 pixels
+Grupo 82 tem 1 pixels
+Grupo 83 tem 1 pixels
+Grupo 84 tem 15 pixels
+Grupo 85 tem 1 pixels
+Grupo 86 tem 1 pixels
+Grupo 87 tem 2 pixels
+Grupo 88 tem 1 pixels
+Grupo 89 tem 1 pixels
+Grupo 90 tem 1 pixels
+Grupo 91 tem 2 pixels
+Grupo 92 tem 2 pixels
+Grupo 93 tem 2 pixels
+Grupo 94 tem 2 pixels
+Grupo 95 tem 1 pixels
+Grupo 96 tem 1 pixels
+Grupo 97 tem 1 pixels
+Grupo 98 tem 8 pixels
+Grupo 99 tem 23 pixels
+Grupo 100 tem 2 pixels
+Grupo 101 tem 1 pixels
+Grupo 102 tem 1 pixels
+Grupo 103 tem 1 pixels
+Grupo 104 tem 1 pixels
+Grupo 105 tem 1 pixels
+Grupo 106 tem 2 pixels
+Grupo 107 tem 1 pixels
+Grupo 108 tem 2 pixels
+Grupo 109 tem 12 pixels
+Grupo 110 tem 2 pixels
+Grupo 111 tem 2 pixels
+Grupo 112 tem 1 pixels
+Grupo 113 tem 1 pixels
+Grupo 114 tem 2 pixels
+Grupo 115 tem 3 pixels
+Grupo 116 tem 1 pixels
+Grupo 117 tem 1 pixels
+Grupo 118 tem 2 pixels
+Grupo 119 tem 1 pixels
+Grupo 120 tem 1 pixels
+Grupo 121 tem 1 pixels
+Grupo 122 tem 1 pixels
+Grupo 123 tem 1 pixels
+Grupo 124 tem 1 pixels
+Grupo 125 tem 1 pixels
+Grupo 126 tem 100 pixels
+Grupo 127 tem 1 pixels
+Grupo 128 tem 2 pixels
+Grupo 129 tem 1 pixels
+Grupo 130 tem 1 pixels
+Grupo 131 tem 1 pixels
+Grupo 132 tem 3 pixels
+Grupo 133 tem 2 pixels
+Grupo 134 tem 3 pixels
+Grupo 135 tem 1 pixels
+Grupo 136 tem 3 pixels
+Grupo 137 tem 1 pixels
+Grupo 138 tem 4 pixels
+Grupo 139 tem 1 pixels
+Grupo 140 tem 1 pixels
+Grupo 141 tem 2 pixels
+Grupo 142 tem 1 pixels
+Grupo 143 tem 1 pixels
+Grupo 144 tem 3 pixels
+Grupo 145 tem 2 pixels
+Grupo 146 tem 2 pixels
+Grupo 147 tem 1 pixels
+Grupo 148 tem 1 pixels
+Grupo 149 tem 2 pixels
+Grupo 150 tem 1 pixels
+Grupo 151 tem 1 pixels
+Grupo 152 tem 2 pixels
+Grupo 153 tem 1 pixels
+Grupo 154 tem 2 pixels
+Grupo 155 tem 3 pixels
+Grupo 156 tem 5 pixels
+Grupo 157 tem 1 pixels
+Grupo 158 tem 3 pixels
+Grupo 159 tem 2 pixels
+AVISO: graphic: voltei da funcao segmenteImagem.
+AVISO: graphic: chamando a funcao pinteRegioes.
+AVISO: graphic: voltei da funcao pinteRegioes.
+
+Tecle:  'a' para (a)umentar o limiar das bordas
+        'b' para mostrar as (b)ordas (pinteImagem, pinteRegioes)
+        'd' para (d)iminuir o limiar das bordas
+        'g' para (g)ravar a imagem atual em um arquivo (graveImagem)
+        'l' para (l)impar a tela (pinteImagem)
+        'o' para mostrar a imagem (o)riginal (copieImagem)
+        'r' para mostrar as (r)egioes (pinteImagem, pinteRegioes)
+        's' para (s)egmentar a imagem (freeRegioes, segmenteImagem, pinteRegioes)
+        'x' para e(x)it (quit)
+Clique: em um pixel com 
+         botao esquerdo para alterar a cor da regiao (repinteRegiao)
+         botao direito para alterar a cor (repinteRegioes).
+</pre> 
+No caso, a nova imagem corrente exibida poderá ser algo como
+<center>
+<p>
+<img src="./enunciado_files/grauna_50.jpg" alt="segmenta 50">
+</p>
+</center>
+Se agora teclarmos em <tt>'b'</tt> veremos que mais pontos passaram a ser considerados de "borda".
+<center>
+<p>
+<img src="./enunciado_files/grauna_b50.jpg" alt="bordas 50">
+</p>
+</center>
+
+
+<p></p>
+
+<!-------------------------------------------------------------------------->
+<h3>
+Opção x
+</h3>
+
+<p>
+Finalmente, ao teclarmos <tt>'x'</tt>, a execução do programa é encerrada.
+As mensagens vistas no shell são:
+</p><pre class="saida">AVISO: graphic: chamando a funcao quit.
+
+Tchau! Tchau! Fui!
+</pre>
+<p></p>
+
+
+<hr>
+<h2>
+Processamento de imagens
+</h2>
+
+<p>
+Para desenvolver o EP precisamos representar imagens no
+computador. Isto é feito através das chamadas <a href="http://pt.wikipedia.org/wiki/Imagem_digital">imagens digitais</a>.
+</p>
+
+
+<h3>
+Imagens digitais, binárias e coloridas
+</h3>
+
+<p>
+Uma <font color="red"><i>imagem digital</i></font> ou simplesmente  
+<font color="red"><i>imagem</i></font> é basicamente uma
+matriz, com, digamos, altura <tt>height</tt> (número de linhas) e largura <tt>width</tt>
+(número de colunas). 
+Cada elemento da matriz é chamado de <font color="red"><i>pixel</i></font> 
+(<a href="http://en.wikipedia.org/wiki/Pixels"><it>picture element</it></a>), 
+que possui uma "<font color="red">c</font><font color="green">o</font><font color="blue">r</font>".
+
+</p><p>
+Na sua forma mais básica podemos representar um pixel como 
+<i>aceso</i> ("branco"), ou <i>apagado</i> ("preto"). 
+As imagens em que cada pixel  possui apenas um dentre dois
+"níveis" possíveis são chamadas de <font color="red">imagens binárias</font>. 
+Imagens binárias podem ser representadas de maneira bastante compacta, 
+basta reservarmos apenas 1 <t>bit (= dígito binário) por pixel. 
+Desta forma podemos representar até 8 pixels em cada <i>byte</i> do computador. 
+</t></p>
+
+<p>
+Em geral, no entanto, dois nívels são insuficientes para representar o que 
+costumamos chamar de imagens em <i>preto e branco</i>, 
+pois estas, em geral, possuem vários níveis ou tons de cinza. 
+Uma forma comum de representar uma imagem com vários tons de cinza é reservando 
+um byte (8 bits) para cada pixel. Desta forma podemos representar 
+imagens com até 256 níveis de cinza por pixel. Chamamos as imagens em que 
+cada pixel pode ter vários tons de cinza de <font color="red"><i>imagens com 
+nível de cinza</i></font>. 
+</p>
+
+<p>
+Já uma imagem <font color="red">c</font><font color="green">o</font><font color="blue">l</font><font color="red">o</font><font color="green">r</font><font color="blue">i</font><font color="red">d</font><font color="green">a</font> requer ainda mais informação para cada pixel. 
+A representação mais comum é obtida decompondo uma cor nas 
+componentes básicas 
+<font color="red">red</font> (<font color="red">vermelho</font>),
+<font color="green">green</font> (<font color="green">verde</font>) e 
+<font color="blue">blue</font>  (<font color="blue">azul</font>) ou
+<font color="red">R</font><font color="green">G</font><font color="blue">B</font>.
+<font color="red">Vermelho</font>, <font color="green">verde</font>
+e <font color="blue">azul</font> são chamadas
+de <a href="http://en.wikipedia.org/wiki/Primitive_colors">cores
+  primárias</a>, já que com combinações dessas cores podemos
+representar um espectro grande de cores. Para a maioria das
+aplicações essas três 
+cores são suficientes, pois a visão humana é 
+<a href="http://en.wikipedia.org/wiki/Trichromatic">tricromática</a>.
+Aqui, o método que armazenaremos imagens <font color="red">c</font><font color="green">o</font><font color="blue">l</font><font color="red">o</font><font color="green">r</font><font color="blue">i</font><font color="red">d</font><font color="blue">a</font><font color="red">s</font> será o <a href="http://en.wikipedia.org/wiki/Color_depth#True_color_.2824-bit.29"><i>True Color</i> (24 bits)</a>.
+</p>
+
+<h3>
+Segmentação e bordas
+</h3>
+
+<p>
+A <a href="http://en.wikipedia.org/wiki/Image_segmentation">segmentação de imagens</a> é um passo importante deste EP
+[<a href="http://www.imageprocessingplace.com/DIP-3E/dip3e_main_page.htm">Gonzalez e Woods</a>,
+<a href="http://www.tutorialspoint.com/dip/">Digital Image Processing</a>].
+A segmentação subdivide uma imagem em regiões ou objetos que a compõem.
+O nível de detalhe em que a subdivisão é realizada depende do problema a ser resolvido.
+</p>
+<p>
+Neste EP, uma imagem será segmentada em regiões (conexas) em relação a pixels de borda.
+Cada região será formada por <font color="red"><b>pixels de borda</b></font>
+ou apenas por <font color="red"><b>pixels que não são de borda</b></font>
+e são limitados por bordas ou pela fronteira da imagem.
+Dessa forma, um componente central desse EP utilizado para segmentar imagens será a
+função
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">pixelBorda</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> limiar, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin);
+</pre></div>
+</pre>
+que recebe a posição <tt>[lin][col]</tt> de um pixel de uma imagem
+<tt>img</tt> e retorna <tt>TRUE</tt> se o pixel <tt>[lin][col]</tt> é
+de borda em relação ao valor do inteiro <tt>limiar</tt> e retorna
+<tt>FALSE</tt> em caso contrário.
+Você deverá implementar a  função <tt>pixelBorda()</tt>.
+A seguir descrevemos como essa função deve fazer o seu serviço.
+<p></p>
+<p>
+De uma maneira geral, em detecção de bordas (<a href="http://en.wikipedia.org/wiki/Edge_detection">edge detection</a>)
+são identificados os pixels da imagem em que há uma mudança brusca ou descontínua na luminosidade
+(<a href="http://en.wikipedia.org/wiki/Luminous_intensity">luminous intensity</a>). No EP, a luminosidade relativa
+(<a href="http://en.wikipedia.org/wiki/Relative_luminance">relative luminance</a>) 
+de um pixel <tt>[lin][col]</tt> é calculada pela função <tt>luminosidadePixel()</tt>, que está implementada no
+esqueleto do EP.
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">double</span> 
+<span style="color: #00A000">luminosidadePixel</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin);
+</pre></div>
+</pre>
+<p></p>
+<p>
+Para determinar se um pixel <tt>[lin][col]</tt> é de borda utilizaremos o filtro de Sobel
+(<a href="http://en.wikipedia.org/wiki/Sobel_operator">Sobel operator</a>).
+No método será necessário o cálculo de duas grandezas,
+os chamados gradientes horizontal <tt>gX</tt> e o gradiente vertical <tt>gY</tt>
+no pixel <tt>[lin][col]</tt>.
+A seguir denotaremos por <tt>lum[i][j]</tt> a luminosidade relativa de um pixel <tt>[i][j]</tt>.
+Os valores de <tt>gX</tt> e <tt>gY</tt> serão calculados da seguinte maneira:
+</p><pre class="code">gX =    lum[lin-1][col+1] + 2*lum[lin][col+1] + lum[lin+1][col+1]
+      - lum[lin-1][col-1] - 2*lum[lin][col-1] - lum[lin+1][col-1]
+
+gY =    lum[lin+1][col-1] + 2*lum[lin+1][col] + lum[lin+1][col+1] 
+      - lum[lin-1][col-1] - 2*lum[lin-1][col] - lum[lin-1][col+1]
+</pre>
+É claro que nas adições acimas só devem ser levados em consideração
+os termos para os quais a posição do pixel na imagem faz sentido.
+Por exemplo, para <tt>lin = 0</tt>, é um erro computarmos os
+termos que envolvem <tt>lum[lin-1][col]</tt>.
+<p></p>
+
+<p>
+Calculados os gradientes <tt>gX</tt> e <tt>gY</tt> no pixel <tt>[lin][col]</tt>,
+a função <tt>pixelBorda()</tt> declara o pixel <tt>[lin][col]</tt> de
+borda em relação a um dado valor <tt>limiar</tt> se
+</p><pre class="code">√<span style="text-decoration:overline">gX * gX + gY * gY</span> &gt; limiar,
+</pre>
+em caso contrário, o pixel <tt>[lin][col]</tt> não é de borda
+[<a href="http://rhaylsonsilva.wordpress.com/2012/03/02/processamento-de-imagens-deteccao-de-bordas-de-imagens/">Processamento de imagens: Detecção de bordas</a>].
+<p></p>
+
+<p>
+Outra maneira de obtermos <tt>gX</tt> e <tt>gY</tt> através da <b><font color="red">convolução</font></b>
+da luminidade do pixel <tt>[lin][col]</tt> com as matrizes a seguir
+[<a href="http://colah.github.io/posts/2014-07-Understanding-Convolutions/">Understanding Convolutions</a>].
+Em <a href="http://rhaylsonsilva.wordpress.com/2012/03/02/processamento-de-imagens-deteccao-de-bordas-de-imagens/">Processamento de imagens: Detecção de bordas</a>
+há uma imagem que exemplifica a operação de convolução.
+</p>
+
+<div class="coluna1">
+  <table align="center">
+    <caption align="bottom">
+      <small>
+	Para o cálculo de <tt>gX</tt>.
+	<small>
+    </small></small></caption>
+    <tbody><tr>
+      <td>
+	<pre class="code">     0    1    2  
+  +----+----+----+
+0 | -1 |  0 | +1 |
+  +----+----+----+
+1 | -2 |  0 | +2 |
+  +----+----+----+
+2 | -1 |  0 | +1 |
+  +----+----+----+</pre>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+<div class="coluna2">
+  <table align="center">
+    <caption align="bottom">
+      <small>
+	Para o cálculo de <tt>gY</tt>.
+	<small>
+    </small></small></caption>
+    <tbody><tr>
+      <td>
+	<pre class="code">     0    1    2  
+  +----+----+----+
+0 | -1 | -2 | -1 |
+  +----+----+----+
+1 |  0 |  0 |  0 |
+  +----+----+----+
+2 | +1 | +2 | +1 |
+  +----+----+----+</pre>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+<!-- <p>&nbsp;</p>-->
+<p class="floatstop">&nbsp;</p>
+
+<p>
+As imagens a seguir ilustram a operação de convolução.
+Na imagem da esquerda, <i>kernel</i> representa uma das matrizes acima, <i>input</i> faz as vezes 
+da luminosidade de cada pixel, o pixel azul escuro é  o da posição <tt>[lin][col]</tt> e o pixel 
+em vermelho representa o valor de <tt>gX</tt> ou de <tt>gY</tt>.
+A imagem da direita apresenta um exemplo numérico de convolução. 
+Ambas as imagens foram copiadas de <a href="http://rivertrail.github.io/RiverTrail/tutorial/">River Trail documentation</a>. 
+</p>
+
+<div class="coluna1">
+  <table align="center">
+    <caption align="bottom">
+    <small>
+    Ilustração da convolução.
+    <small>
+    </small></small></caption>
+    <tbody><tr>
+      <td>
+        <img src="./enunciado_files/convolution2.png" alt="convolucao 1">
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+
+<div class="coluna2">
+  <table align="center">
+    <caption align="bottom">
+    <small>
+    Exemplo numérico de convolução.
+    <small>
+    </small></small></caption>
+    <tbody><tr>
+      <td>
+        <img src="./enunciado_files/convolution4.png" alt="convolucao 2">
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+<!-- <p>&nbsp;</p>-->
+<p class="floatstop">&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+<!--************************************************************************-->
+<hr>
+<h2>
+Representações de imagens, pixels, listas de pixels e listas de regiões
+</h2>
+
+<p> Para simplificar a representação de imagens nesse exercício-programa 
+e torná-la independente de plataforma, dispositivo e formato,
+decidimos considerar a seguinte definição para uma imagem 
+<font color="red">R</font><font color="green">G</font><font color="blue">B</font>. 
+As estruturas usadas para representarmos imagens, pixels, células de listas de pixels 
+e células de listas de regiões estão todas definidas no arquivo 
+<font color="red"><tt>imagem.h</tt></font>.  </p>
+
+<!--------------------------------------------------------------------->
+<p>
+O tipo <tt>Pixel</tt> que foi adotado tem o formato abaixo.
+</p><pre class="code"><font color="red">Copiado de imagem.h</font>
+<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-style: italic">/*-------------------------------------------------------------*/</span>
+<span style="color: #008800; font-style: italic">/* indices de uma cor/canal */</span>
+<span style="color: #AA22FF; font-weight: bold">enum</span> cores
+{
+    RED   <span style="color: #008800; font-style: italic">/* = 0 */</span>,
+    GREEN <span style="color: #008800; font-style: italic">/* = 1 */</span>,
+    BLUE  <span style="color: #008800; font-style: italic">/* = 2 */</span>
+};
+
+<span style="color: #008800; font-style: italic">/* Byte = valores entre 0 e 255 (8 bits) */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #00BB00; font-weight: bold">unsigned</span> <span style="color: #00BB00; font-weight: bold">char</span> Byte;
+
+<span style="color: #008800; font-style: italic">/*-------------------------------------------------------------*/</span>
+<span style="color: #008800; font-style: italic">/* pixel True Color */</span>
+<span style="color: #008800; font-style: italic">/* http://en.wikipedia.org/wiki/True_Color#True_color_.2824-bit.29 */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #AA22FF; font-weight: bold">struct</span> pixel Pixel;
+<span style="color: #AA22FF; font-weight: bold">struct</span> pixel
+{
+    Byte cor[<span style="color: #666666">3</span>];      
+         <span style="color: #008800; font-style: italic">/* cor[RED]   eh um valor entre 0 e 255 */</span>
+         <span style="color: #008800; font-style: italic">/* cor[GREEN] eh um valor entre 0 e 255 */</span>
+         <span style="color: #008800; font-style: italic">/* cor[BLUE]  eh um valor entre 0 e 255*/</span>
+    CelRegiao  <span style="color: #666666">*</span>regiao; <span style="color: #008800; font-style: italic">/* ponteiro para a celula da regiao do pixel </span>
+<span style="color: #008800; font-style: italic">                           se == NULL indica que o pixel nao </span>
+<span style="color: #008800; font-style: italic">                           pertence a regiao alguma */</span>
+}; 
+</pre></div>
+</pre>
+O vetor <tt>cor</tt> é uma representação
+
+ <font color="red">T</font><font color="green">r</font><font color="blue">u</font><font color="red">e</font>
+<font color="green">C</font><font color="blue">o</font><font color="red">l</font><font color="green">o</font><font color="blue">r</font> da
+ <font color="red">c</font><font color="green">o</font><font color="blue">r</font>
+do pixel:
+<ul>
+<li><tt>cor[<font color="red">RED</font>]</tt> é a intensidade de <font color="red">vermelho</font>,</li>
+<li><tt>cor[<font color="green">GREEN</font>]</tt> é a intensidade de <font color="green">verde</font>,</li>
+<li><tt>cor[<font color="blue">BLUE</font>]</tt> é a intensidade de <font color="blue">azul</font>.</li>
+</ul>
+O campo <tt>regiao</tt> é um ponteiro para a célula que representa a região a que o pixel pertence.
+Esse campo será muito utilizado, especialmente pelas  funções
+responsáveis por criar a lista de regiões (<tt>segmenteImagem()</tt>)
+e por criar as listas de pixels de cada região (<tt>pixelsRegiao()</tt>).
+<p></p>
+
+<!--------------------------------------------------------------------->
+<p>
+As imagens original (lida do arquivo) e corrente (que está sendo
+exibida na janela) serão representadas através de objetos do tipo
+<tt>Imagem</tt>.
+
+
+</p><pre class="code"><font color="red">Copiado de imagem.h</font>
+<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-style: italic">/*------------------------------------------------------------*/</span>
+<span style="color: #008800; font-style: italic">/* representacao para uma imagem colorida */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #AA22FF; font-weight: bold">struct</span> imagem Imagem;
+<span style="color: #AA22FF; font-weight: bold">struct</span> imagem 
+{
+    <span style="color: #00BB00; font-weight: bold">int</span>     width; <span style="color: #008800; font-style: italic">/* no. de colunas (width/largura) da imagem em pixels */</span>
+    <span style="color: #00BB00; font-weight: bold">int</span>    height; <span style="color: #008800; font-style: italic">/* no. de linhas  (height/altura) da imagem em pixels */</span>
+    Pixel <span style="color: #666666">**</span>pixel; <span style="color: #008800; font-style: italic">/* matriz height x width de pixels com os níveis RGB  */</span>
+}; 
+</pre></div></pre>
+
+Assim, uma imagem será representada através de dois números inteiros
+<tt>height</tt> e <tt>width</tt> e de um ponteiro <tt>pixel</tt> para uma
+matriz com <tt>height</tt> linhas e <tt>width</tt> colunas.
+
+Cada posição <tt>[lin][col]</tt> da matriz é do tipo <tt>Pixel</tt> e contém
+a <font color="red">c</font><font color="green">o</font><font color="blue">r</font>
+do pixel e um ponteiro <tt>regiao</tt> para a célula da sua região.
+
+<!--------------------------------------------------------------------->
+<p>
+Cada célula de uma lista de pixels é do tipo <tt>CelPixel</tt> e tem a forma
+</p><pre class="code"><font color="red">Copiado de imagem.h</font>
+<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-style: italic">/*-------------------------------------------------------------*/</span>
+<span style="color: #008800; font-style: italic">/* celula de um lista de pixels */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #AA22FF; font-weight: bold">struct</span> celPixel CelPixel;
+<span style="color: #AA22FF; font-weight: bold">struct</span> celPixel 
+{ 
+    <span style="color: #00BB00; font-weight: bold">int</span>        col, lin; <span style="color: #008800; font-style: italic">/* [lin][col] e a posicao do pixel */</span>
+    CelPixel <span style="color: #666666">*</span>proxPixel; <span style="color: #008800; font-style: italic">/* ponteiro para o proximo pixel */</span>
+};
+</pre></div>
+</pre>
+As listas de pixels serão criadas pela função <tt>pixelsRegiao()</tt>.
+<p></p>
+
+<p>
+Cada célula da lista de regiões é do tipo <tt>CelRegiao</tt> e é da forma
+</p><pre class="code"><font color="red">Copiado de imagem.h</font>
+<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-style: italic">/*-------------------------------------------------------------*/</span>
+<span style="color: #AA22FF; font-weight: bold">enum</span> <span style="color: #00BB00; font-weight: bold">bool</span> 
+{
+    FALSE <span style="color: #008800; font-style: italic">/* = 0 */</span>,
+    TRUE  <span style="color: #008800; font-style: italic">/* = 1 */</span>
+};
+
+<span style="color: #008800; font-style: italic">/* Bool = valores FALSE e TRUE */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> Byte Bool;
+
+<span style="color: #008800; font-style: italic">/*-------------------------------------------------------------*/</span>
+<span style="color: #008800; font-style: italic">/* celula de uma lista de regioes */</span>
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #AA22FF; font-weight: bold">struct</span> celRegiao CelRegiao;
+<span style="color: #AA22FF; font-weight: bold">struct</span> celRegiao 
+{        
+    <span style="color: #00BB00; font-weight: bold">int</span>           nPixels; <span style="color: #008800; font-style: italic">/* no. de pixels na regiao */</span>
+    Byte           cor[<span style="color: #666666">3</span>]; <span style="color: #008800; font-style: italic">/* cor dos pixels na regiao */</span>
+    Bool            borda; <span style="color: #008800; font-style: italic">/* indica se a regiao e ou nao de borda */</span>
+    CelPixel   <span style="color: #666666">*</span>iniPixels; <span style="color: #008800; font-style: italic">/* ponteiro para a lista de pixels na regiao */</span>
+    CelRegiao <span style="color: #666666">*</span>proxRegiao; <span style="color: #008800; font-style: italic">/* ponteiro para a proxima regiao */</span>  
+};
+</pre></div>
+</pre>
+O campo <tt>nPixels</tt> armazena o número de pixels na região.
+De maneira idêntica a tipo <tt>Pixel</tt>, a cor dos pixels de uma região é representada por um
+vetor <font color="red">c</font><font color="green">o</font><font color="blue">r</font>, sendo que
+<ul>
+  <li> cor[<font color="red">RED</font>] é a intensidade do <font color="red">vermelho</font>,
+  </li><li> cor[<font color="green">GREEN</font>] é a intensidade do <font color="green">verde</font>,  
+  </li><li> cor[<font color="blue">BLUE</font>] é a intensidade do <font color="blue">azul</font>.  
+</li></ul>
+O campo <tt>borda</tt> indica se a região é formada por pixels de
+borda (<tt>borda==TRUE</tt>) ou por pixels limitados por bordas e pelas
+fronteiras da imagem (<tt>borda==FALSE</tt>).
+O campo <tt>iniPixels</tt> é um ponteiro para a lista de pixels que formam a região.
+Finalmente, o campo <tt>proxRegiao</tt> é um ponteiro para a próxima célula da lista de regiões.
+<p></p>
+
+<p>
+
+A lista de regiões será criada pela função <tt>segmenteRegiao()</tt>.
+</p>
+<p></p>
+
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<hr>
+<h2>
+Descrição dos arquivos do EP
+</h2>
+
+<p>
+Aqui é apresentada uma visão geral dos arquivos que compõem o EP2.
+</p><p>
+</p><p>
+Este exercício-programa é formado por 9 arquivos 8-[.<br>
+O diretório com <a href="https://www.ime.usp.br/~cris/mac121/eps/ep2/esqueleto/">esqueleto EP</a> contém, 
+além desses 9 arquivos um <tt>Makefile</tt> para gerar o executável do programa. 
+Os arquivos no diretório com o esqueleto são
+</p><pre class="saida">esqueleto&gt; <font color="red">ls -la</font>
+-rw-r--r--@    720 Sep  4 13:49 Makefile
+-rw-r--r--@   2147 Sep  4 13:23 cores.h
+-rw-r--r--@  12557 Sep  4 13:25 graphic.c
+-rw-r--r--@    486 Sep  4 13:13 graphic.h
+-rw-r--r--@  18205 Sep  4 11:50 imagem.c
+-rw-r--r--@   4176 Sep  4 13:25 imagem.h
+-rw-r--r--@   7703 Sep  4 13:24 io.c
+-rw-r--r--@    355 Sep  4 13:24 io.h
+-rw-r--r--@   5011 Sep  4 13:24 main.c
+-rw-r--r--@    442 Sep  4 13:05 main.h
+</pre>
+<p>
+Os únicos arquivos que deverão ser
+<font color="red"><b>manipulados e entregues</b></font>
+são <tt>imagem.c</tt> e <tt>main.c</tt>; os demais arquivos <font color="green"><b>não devem ser alterados</b></font>.
+</p>
+
+<p> Os arquivos <tt>imagem.c</tt> e <tt>main.c</tt> contêm os protótipos
+das funções que deverão ser feitas, algumas funções completas e
+comentários com uma especificação do comportamento de cada função.
+Para compilar o programa e gerar o executável basta, na linha de
+comando, digitar <tt>make</tt>.
+
+Os que usam o <tt>Code::Blocks</tt>
+devem ler a seção <font color="green">Projetos</font> da <a href="http://www.ime.usp.br/~mac2166/codeblocks/codeblocksintro.html">Aula
+Dirigida de Introdução ao Code::Blocks</a>.
+
+Compile o programa assim
+que baixar o esqueleto e vocês verão as mensagens a seguir e um
+executável de nome <tt>pintor</tt> será gerado.  Dependendo da versão
+do compilador as mensagens pode ser ligeiramente diferentes.
+
+
+</p><pre class="saida">esqueleto&gt; <font color="red">make</font>
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c main.c 
+<font color="blue">main.c:164:1: warning: ‘mostreUso’ defined but not used [-Wunused-function]</font>
+ mostreUso (char *nomePrograma)
+ ^
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c graphic.c 
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c imagem.c 
+<font color="blue">imagem.c:191:1: warning: ‘setPixel’ defined but not used [-Wunused-function]</font>
+ setPixel(Imagem *img, int col, int lin, Byte cor[])
+ ^
+<font color="blue">imagem.c:317:1: warning: ‘pixelBorda’ defined but not used [-Wunused-function]</font>
+ pixelBorda(Imagem *img, int col, int lin, int limiar)
+ ^
+<font color="blue">imagem.c:542:1: warning: ‘pixelsRegiao’ defined but not used [-Wunused-function]</font>
+ pixelsRegiao(Imagem *img, int limiar, int col, int lin, CelRegiao *regiao)
+ ^
+<font color="blue">imagem.c:575:1: warning: ‘mallocSafe’ defined but not used [-Wunused-function]</font>
+ mallocSafe (size_t nbytes)
+ ^
+<font color="blue">imagem.c:607:1: warning: ‘luminosidadePixel’ defined but not used [-Wunused-function]</font>
+ luminosidadePixel(Imagem *img, int col, int lin)
+ ^
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c io.c 
+gcc main.o graphic.o imagem.o io.o -o pintor -lGL -lGLU -lglut -lm
+</pre>
+Note que, apesar de no esqueleto o corpo das funções que deverão ser feitas estar vazio,
+o EP compila <font color="red">sem erros de sintaxe</font> e com
+<font color="blue">6 avisos</font> devido a funções 
+que não foram utilizadas (<tt>-Wunused-function</tt>).
+<p></p>
+
+<p> Agora, passamos à descrição dos arquivos.<br> Apenas os arquivos
+<font color="red"><b>imagem.c</b></font> e <font color="red"><b>main.c</b></font> deverão ser manipulados e
+entregues. Não altere os nomes dos arquivos.
+</p>
+
+<ul>
+
+  <!------------------------------------------------------------------------------>
+  <li><font color="blue"><tt>cores.h</tt></font>.
+ <font color="black"><i>
+
+  Para fazer o EP não é necessário olhar o conteúdo deste arquivo, mas
+  é divertido ;-).</i></font> <br> Contém definições de cores no formato
+  <font color="red">R</font><font color="green">G</font><font color="blue">B</font> utilizado pelo <a href="http://www.opengl.org/">OpenGL</a>.
+
+  As definições neste arquivo são utilizadas pelos módulos
+ <tt>graphic.c</tt> e <tt>imagem.c</tt>.
+
+  Em particular, vocês utilizarão a constante <tt>NUM_CORES</tt> e a
+  tabela <tt>cores[0..NUM_CORES-1]</tt> definidas nesse arquivo para
+  (re)pintar as regiões da imagem.
+
+<br><br>
+  </li>
+
+  <!------------------------------------------------------------------------------>
+<li><font color="green"><tt>graphic.c</tt></font>.
+
+  <font color="black"><i>Para fazer o EP não é necessário olhar o
+  conteúdo deste arquivo, mas é divertido ;-).</i></font><br> Aqui
+  estão as funções que "conversam" com o OpenGL.
+
+  Essas funções fazem as chamadas ao OpenGL responsáveis por exibir
+  a imagem corrente na janela que o EP abre assim que é iniciado.
+
+  Em um primeiro momento, a imagem exibida é a original que foi lida
+  de um arquivo.
+
+  Neste arquivo estão as funções que tratam dos eventos gerados quando 
+  teclamos algo ou clicamos com o botão esquerdo ou direito do mouse 
+  em um ponto da janela com a imagem corrente.
+
+  A única chamada feita a uma função deste arquivo, fora as chamadas 
+  dentro do próprio <tt>graphic.c</tt>, é a feita no final da função 
+  <tt>main</tt> (<tt>main.c</tt>)   à função <tt>myInit()</tt>.
+  Esta chamada já está no esqueleto.
+  
+  <br>
+  <br>
+  </li>
+  
+<!------------------------------------------------------------------------------>
+<li><font color="blue"><tt>graphic.h</tt></font>.
+  <font color="black"><i>Para fazer o EP não é necessário olhar o conteúdo deste arquivo,
+  mas é divertido ;-).</i></font><br>
+
+  Contém o protótipo da função <tt>myInit()</tt>. Esse arquivo é incluído no <tt>main.c</tt>.
+
+  <br><br>
+
+</li>
+
+<!------------------------------------------------------------------------------>
+<li><font color="red"><b>imagem.c</b></font>.  <font color="red"><b>Este é o cara!</b></font><br>
+
+  A grande parte da tarefa desse EP é fazer as funções deste arquivo.
+  Essas funções manipulam imagens, listas ligadas de pixels e a lista
+  ligada de regiões.
+
+  <br><br>
+
+</li>
+  
+  
+  <!------------------------------------------------------------------------------>
+<li><font color="green"><tt>imagem.h</tt></font>. <font color="red"><b>Este também é o cara!</b></font><br>
+
+  Nada deve ser feito ou alterado neste arquivo.
+
+  Contém as declarações de todos (ou quase todos) os tipos utilizados
+  pelo EP para representar imagens, pixels, células de listas de pixels
+  e células de regiões.
+
+
+  Também contém os protótipos das funções do módulo <tt>imagem.c</tt>
+  que são usadas por <tt>main.c</tt> e <tt>graphic.c</tt>.  
+
+  Este arquivo é incluído em todos os demais.<br>
+
+  <br>
+</li>
+
+<!------------------------------------------------------------------------------>
+<li><font color="blue"><tt>io.c</tt></font>.
+
+<font color="black"><i>Para fazer o EP não é necessário olhar o conteúdo deste arquivo,
+  mas é divertido ;-).</i></font><br>
+
+  Contém duas funções, uma responsável pela leitura de imagens
+  (<tt>carregueImagemPPM()</tt>) e outra responsável por gravar uma
+  imagem em um arquivo (<tt>graveImagemPPM()</tt>).
+
+  Essas funções são chamadas em <tt>main.c</tt>.<br>
+
+ <br>
+</li>
+
+<!------------------------------------------------------------------------------>
+<li><font color="green"><tt>io.h</tt></font>.
+  <font color="black"><i>Para fazer o EP não é necessário olhar o conteúdo deste arquivo,
+  mas é divertido ;-).</i></font><br>
+  Contém apenas os protótipos das funções
+<tt>carregueImagemPPM()</tt> e <tt>graveImagemPPM()</tt> que estão
+definidas em <tt>io.c</tt>.
+
+Este arquivo é incluído no <tt>main.c</tt>.<br>
+
+<br>
+</li>
+
+<!------------------------------------------------------------------------------>
+<li><font color="red"><tt>main.c</tt></font>.
+ Contém a função <tt>main()</tt>.
+
+  Aqui você deverá completar a função <tt>main()</tt> e escrever outras duas funções que são simples.
+<br><br>
+
+</li>
+
+<!------------------------------------------------------------------------------>
+<li><font color="blue"><tt>main.h</tt></font>.
+  <font color="black"><i>Para fazer o EP não é necessário olhar o conteúdo deste arquivo,
+  mas é divertido ;-).</i></font><br>
+
+Contém apenas o protótipo
+de duas funções do <tt>main.c</tt>, a <tt>graveImagem()</tt> e a <tt>quit()</tt>.
+
+É incluído em <tt>main.c</tt> e em <tt>graphic.c</tt>.<br>
+<br>
+
+</li>
+
+
+<!------------------------------------------------------------------------------>
+<li><font color="green"><tt>Makefile</tt></font>.
+<font color="black"><i>Para fazer o EP não é necessário olhar o conteúdo deste arquivo,
+mas é divertido ;-).</i></font><br>
+
+Para compilar e gerar o executável de
+<tt>ep2</tt> basta digitar <font color="red"><tt>make</tt></font> no prompt.<br>
+
+<pre class="saida">meu_prompt&gt; <font color="red">make</font>
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c main.c 
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c graphic.c 
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c imagem.c 
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c io.c 
+gcc main.o graphic.o imagem.o io.o -o pintor -lGL -lGLU -lglut -lm
+</pre>
+
+Os que usam o <tt>Code::Blocks</tt>
+devem ler a seção <font color="green">Projetos</font> da <a href="http://www.ime.usp.br/~mac2166/codeblocks/codeblocksintro.html">Aula
+Dirigida de Introdução ao Code::Blocks</a>.
+</li>
+</ul>
+
+<hr>
+<h2>
+Protótipos das funções fornecidas
+</h2>
+
+<p>
+Aqui estão listados os protótipos das funções fornecidas e
+que você utilizará em alguns dos trechos de código que deverá escrever.
+O comportamento das funções está descrito nos comentários que precedem
+as funções nos arquivos do esqueleto.
+</p>
+
+<p>
+No módulo <tt>io.c</tt> temos as funções
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">graveImagemPPM</span>(<span style="color: #00BB00; font-weight: bold">char</span> <span style="color: #666666">*</span>nomeArquivo, Imagem <span style="color: #666666">*</span>img);
+
+Imagem <span style="color: #666666">*</span>
+<span style="color: #00A000">carregueImagemPPM</span>(<span style="color: #00BB00; font-weight: bold">char</span> <span style="color: #666666">*</span>nomeArquivo);
+</pre></div>
+</pre>
+<p></p>
+
+<p>
+No módulo <tt>imagem.c</tt> temos as funções
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #666666">*</span>
+<span style="color: #00A000">mallocSafe</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> nbytes);
+
+<span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">double</span> 
+<span style="color: #00A000">luminosidadePixel</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin);
+</pre></div>
+</pre>
+<p></p>
+<p>
+No módulo <tt>main.c</tt>
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">mostreUso</span>(<span style="color: #00BB00; font-weight: bold">char</span> <span style="color: #666666">*</span>nomePrograma);
+</pre></div>
+</pre>
+<p></p>
+
+<hr>
+<h2>
+Protótipos das funções que você deve implementar
+</h2>
+<p>&nbsp;</p>
+
+
+<p>
+Aqui estão listados os protótipos das funções que você deverá implementar.
+O comportamento das funções está descrito nos comentários que precedem
+as funções nos arquivos do esqueleto.
+Você pode escrever mais funções auxiliares se achar necessário.
+</p>
+
+<p>
+No módulo <tt>main.c</tt>
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #00BB00; font-weight: bold">int</span> 
+<span style="color: #00A000">main</span>(<span style="color: #00BB00; font-weight: bold">int</span> argc, <span style="color: #00BB00; font-weight: bold">char</span> <span style="color: #666666">*</span>argv[]);
+
+<span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">quit</span>(Imagem <span style="color: #666666">*</span>tela, Imagem <span style="color: #666666">*</span>img, CelRegiao <span style="color: #666666">*</span>iniRegioes);
+
+<span style="color: #00BB00; font-weight: bold">void</span>
+<span style="color: #00A000">graveImagem</span>(Imagem <span style="color: #666666">*</span>img);
+</pre></div>
+</pre>
+<p></p>
+
+Na função <tt>main()</tt> (<tt>main.c</tt>) há 3 variáveis que já foram declaradas
+<pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">    Imagem <span style="color: #666666">*</span>imgOriginal   <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>; <span style="color: #008800; font-style: italic">/* ponteiro para a imagem original */</span>
+    Imagem <span style="color: #666666">*</span>tela          <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>; <span style="color: #008800; font-style: italic">/* ponteiro para a imagem corrente ou atual */</span>
+    CelRegiao <span style="color: #666666">*</span>iniRegioes <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>; <span style="color: #008800; font-style: italic">/* ponteiro para a lista de regioes */</span>
+</pre></div>
+</pre>
+A variável <tt>imgOriginal</tt> é um ponteiro para a estrutura que representa a
+<font color="red"><b>imagem original</b></font>, que é a imagem fornecida
+ao programa através de um arquivo.
+Depois de inicializada, a imagem original <font color="red"><b>não deverá ser mais alterada</b></font>.
+A variável <tt>tela</tt> é um ponteiro para a estrutura que representa a
+<font color="red"><b>imagem corrente ou atual</b></font>.
+Essa é a imagem que será constantemente exibida pela janela do programa.
+Já <tt>iniRegioes</tt> é um ponteiro para a lista de regiões (conexas),
+onde cada célula representa uma região formada apenas por pixels de borda ou
+apenas formada por pixels limitados por bordas e pelas fronteiras da imagem.
+Essas três variáveis são passadas para as funções gráficas através da chamada
+<pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">    <span style="color: #008800; font-style: italic">/* 6 passe a bola para a parte grafica */</span>  
+    myInit(<span style="color: #666666">&amp;</span>argc, argv, tela, imgOriginal, iniRegioes);
+ 
+</pre></div>
+</pre>
+feita no final do <tt>main()</tt>. Essa será a última instrução executada pela <tt>main()</tt>.
+
+<p>
+No módulo <tt>imagem.c</tt>
+</p><pre class="code"><!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">setPixel</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin, Byte cor[]);
+
+<span style="color: #AA22FF; font-weight: bold">static</span> Bool
+<span style="color: #00A000">pixelBorda</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> limiar, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin);
+
+<span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">int</span>
+<span style="color: #00A000">pixelsRegiao</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> limiar, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin, CelRegiao <span style="color: #666666">*</span>regiao);
+ 
+Imagem <span style="color: #666666">*</span>
+<span style="color: #00A000">mallocImagem</span>(<span style="color: #00BB00; font-weight: bold">int</span> width, <span style="color: #00BB00; font-weight: bold">int</span> height);
+
+<span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">freeImagem</span>(Imagem <span style="color: #666666">*</span>img);
+
+Pixel
+<span style="color: #00A000">getPixel</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin);
+
+<span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">freeRegioes</span>(CelRegiao <span style="color: #666666">*</span>iniRegioes);
+
+<span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">copieImagem</span>(Imagem <span style="color: #666666">*</span>destino, Imagem <span style="color: #666666">*</span>origem);
+
+<span style="color: #00BB00; font-weight: bold">void</span> 
+<span style="color: #00A000">pinteImagem</span>(Imagem <span style="color: #666666">*</span>img, Byte cor[]);
+
+<span style="color: #00BB00; font-weight: bold">void</span>
+<span style="color: #00A000">pinteRegioes</span>(Imagem <span style="color: #666666">*</span>img, CelRegiao <span style="color: #666666">*</span>iniRegioes, Bool borda);
+
+<span style="color: #00BB00; font-weight: bold">void</span>
+<span style="color: #00A000">repinteRegiao</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin, Byte cor[]);
+
+<span style="color: #00BB00; font-weight: bold">void</span>
+<span style="color: #00A000">repinteRegioes</span>(Imagem <span style="color: #666666">*</span>img, CelRegiao <span style="color: #666666">*</span>iniRegioes, <span style="color: #00BB00; font-weight: bold">int</span> col, <span style="color: #00BB00; font-weight: bold">int</span> lin, Byte cor[]);
+
+CelRegiao <span style="color: #666666">*</span> 
+<span style="color: #00A000">segmenteImagem</span>(Imagem <span style="color: #666666">*</span>img, <span style="color: #00BB00; font-weight: bold">int</span> limiar);  
+</pre></div>
+</pre>
+<p></p>
+
+
+<!--************************************************************************-->
+<!--
+<hr>
+<h2>
+Um possível roteiro para fazer o EP
+</h2>
+
+<p>
+Ao desenvolvermos quaquer programa, devemos procurar repetir o processo de
+escrever trechos pequenos e código e testá-los. Este roteiro sugere uma ordem
+em que você pode aplicar esse processo.
+<p>
+
+<h3>
+Compile o esqueleto  
+</h3>
+
+<p>
+Antes de mais nada, sugerimos que você copie e compile o esqueleto.
+A compilação do esqueleto não gera erros mas pode gerar alguns avisos de
+"funções definidas mas não usadas". Pra isto é necessário que o OpenGL esteja
+instalado.
+<pre class="saida">
+esqueleto> <font color="red">make</font>
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c main.c 
+<font color="blue">main.c:129:1: warning: ‘mostreUso’ defined but not used [-Wunused-function]</font>
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c graphic.c 
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c imagem.c 
+<font color="blue">imagem.c:345:2: warning: ‘mallocSafe’ defined but not used [-Wunused-function]</font>
+<font color="blue">imagem.c:325:1: warning: ‘coresIguaisByte’ defined but not used [-Wunused-function]</font>
+<font color="blue">imagem.c:309:1: warning: ‘coresIguaisPixel’ defined but not used [-Wunused-function]</font>
+gcc -Wall -O2 -ansi -pedantic -Wno-unused-result -c io.c 
+gcc main.o graphic.o imagem.o io.o -o ep2 -lGL -lGLU -lglut
+</pre>
+</p>
+
+<p>
+Exiba uma imagem na janela
+</p>
+
+<p>
+No esqueleto da função <tt>main()</tt> (<tt>main.c</tt>) temos a seguinte definição
+<pre class="code">
+  ImagemRGB *tela         = NULL; /* imagem corrente */
+  ImagemRGB *imgOriginal  = NULL; /* imagem original */
+  CelRegiao *listaRegioes = NULL; 
+</pre>
+</p>
+
+-->
+<hr>
+<h2>
+Observações
+</h2>
+
+<ul>
+
+  <li>Todos os exercícios são
+    <fot color="red"><b>estritamente individuais</b>.
+
+  </fot></li><li>Exercícios atrasados não serão aceitos. 
+
+  </li><li>Exercícios com erros de sintaxe receberão nota 0. (Acho que nem precisava
+      dizer isto, né?! Mas em todo caso ...)
+
+  </li><li>Indente o seu programa sistematicamente.
+      Uma má apresentação do código  resultará em nota menor.
+      Veja <a href="http://www.gnu.org/prep/standards.html">GNU Coding
+      Standards</a>.
+
+  <!--
+  <li>O seu programa deve conter o mesmo cabeçalho do esqueleto
+  preenchido com os seus dados. Programas sem o cabeçalho, ou com o
+  cabeçalho incompleto, modificado ou não preenchido, terão um
+  desconto automático de ???% da nota. 
+-->
+</li></ul>
+
+<hr>
+<address></address>
+
+</body></html>
